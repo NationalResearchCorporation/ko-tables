@@ -5,7 +5,7 @@ ko-tables
 Javascript classes to manage data bindings on &lt;table> elements
 
 ###Features###
-+ Paging
++ [Paging](http://jsfiddle.net/nB84m/)
 + Sorting
 + Column filtering
 + Table filtering
