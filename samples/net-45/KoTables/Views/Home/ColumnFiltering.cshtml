@@ -1,0 +1,70 @@
+﻿@using NRC.Reveal.KoTables.Models
+@{
+    ViewBag.Title = "Column Filtering";
+    Layout = "~/Views/Shared/_DataSourceLayout.cshtml";
+    ViewBag.Breadcrumbs = ViewBag.Breadcrumbs ?? new LinkedList<Breadcrumb>();
+    ViewBag.Breadcrumbs.AddFirst(new Breadcrumb(ViewBag.Title, "/Home/ColumnFiltering"));
+}
+
+<table>
+    <thead>
+        <tr data-bind="foreach: columns()">
+            <td>
+                <span style="float: left" data-bind="text: description"></span>
+            </td>
+        </tr>
+        <tr data-bind="foreach: columns()">
+            <td>
+                <input data-bind="value: $parent.filter.filterFor(name), valueUpdate: 'afterkeydown'"/>
+            </td>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: page.outputArray()">
+        <tr data-bind="foreach: $parent.columns()">
+            <td data-bind="text: $parent[name]"></td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td data-bind="attr: { colSpan: columns().length }">
+                <select data-bind="options: page.availablePageSizes, optionsValue: 'value', optionsText: 'name', value: page.currentPageSize" ></select>
+                <span style="margin-right: 20px">per page</span>
+                <input type="button" data-bind="click: page.prevPage" value="-" />
+                <span>Page </span>
+                <input style="width: 40px" data-bind="value: page.currentPage" />
+                <span> of </span>
+                <span data-bind="text: page.maxPage()"></span>
+                <input type="button" data-bind="click: page.nextPage" value="+" />
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var Model = function() {
+                this.columns = ko.observableArray([]);
+                this.data = ko.observable([]);
+
+                this.onDataSourceChanging = function () {
+                    this.filter.clearFilters();
+                }
+
+                this.onDataSourceChanged = function () {
+                }
+
+                // Filtering
+                this.filter = new ColumnFilter(this.data);
+
+                // Paging
+                this.page = new Page(this.filter.outputArray, 10);
+            };
+
+            var model = new Model();
+            registerModel(model);
+            changeDataSource("Tiny");
+            ko.applyBindings(model);
+        });
+    </script>
+}

@@ -1,0 +1,30 @@
+﻿
+{
+    "columns": [
+        {"name": "name", "description": "Name"},
+        {"name": "price", "description": "Price"}
+    ],
+    "data": [
+        {"name": "Apple", "price": 2.25},
+        {"name": "Apricot", "price": 1.23},
+        {"name": "Banana", "price": 3.27},
+        {"name": "Grape", "price": 4.29},
+        {"name": "Grapefruit", "price": 5.31},
+        {"name": "Honeydew", "price": 6.33},
+        {"name": "Lemon", "price": 6.34},
+        {"name": "Lime", "price": 8.33},
+        {"name": "Mango", "price": 8.37},
+        {"name": "Melon", "price": 9.39},
+        {"name": "Nectarine", "price": 10.41},
+        {"name": "Orange", "price": 11.43},
+        {"name": "Peach", "price": 12.45},
+        {"name": "Pear", "price": 13.47},
+        {"name": "Pineapple", "price": 14.49},
+        {"name": "Pomegranate", "price": 15.49},
+        {"name": "Raspberry", "price": 15.51},
+        {"name": "Strawberry", "price": 9.39},
+        {"name": "Tomato", "price": 6.72},
+        {"name": "Watermelon", "price": 10.41}
+    ]
+}
+

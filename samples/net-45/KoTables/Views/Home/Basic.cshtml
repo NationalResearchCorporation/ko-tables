@@ -1,0 +1,43 @@
+﻿@using NRC.Reveal.KoTables.Models
+@{
+    ViewBag.Title = "Basic";
+    ViewBag.Breadcrumbs = ViewBag.Breadcrumbs ?? new LinkedList<Breadcrumb>();
+    ViewBag.Breadcrumbs.AddFirst(new Breadcrumb(ViewBag.Title, "/Home/" + ViewBag.Title));
+}
+
+<table>
+    <thead>
+        <tr data-bind="foreach: columns()">
+            <td>
+                <span style="float: left" data-bind="text: description"></span>
+            </td>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: data()">
+        <tr data-bind="foreach: $parent.columns">
+            <td data-bind="text: $parent[name]"></td>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var Model = function() {
+                this.columns = ko.observableArray([]);
+                this.data = ko.observable([]);
+
+                this.onDataSourceChanging = function () {
+                }
+
+                this.onDataSourceChanged = function () {
+                }
+            };
+
+            var model = new Model();
+            registerModel(model);
+            changeDataSource("Tiny");
+            ko.applyBindings(model);
+        });
+    </script>
+}
