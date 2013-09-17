@@ -6,7 +6,7 @@ Javascript classes to manage data bindings on &lt;table> elements
 
 ###Features###
 + [Paging](http://jsfiddle.net/nB84m/)
-+ Sorting
++ [Sorting](http://jsfiddle.net/Zq2NA/2/)
 + Column filtering
 + Table filtering
   
