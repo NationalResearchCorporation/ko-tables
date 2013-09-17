@@ -14,3 +14,6 @@ Javascript classes to manage data bindings on &lt;table> elements
 + [jsFiddle example (column filtering)](http://jsfiddle.net/E3fwZ/4/)
 + [jsFiddle example (table filtering)](http://jsfiddle.net/x89d9/4/)
 + See samples folder for .NET solution 
+
+###License###
+MIT license - http://www.opensource.org/licenses/mit-license.php
