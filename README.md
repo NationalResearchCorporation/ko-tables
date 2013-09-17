@@ -10,6 +10,6 @@ Javascript classes to manage data bindings on &lt;table> elements
 + Column filtering
 + Table filtering
   
-###Example###
-jsFiddle example:
-http://jsfiddle.net/E3fwZ/4/
+###Examples###
++ [jsFiddle example](http://jsfiddle.net/E3fwZ/4/)
++ See samples folder for .NET solution
