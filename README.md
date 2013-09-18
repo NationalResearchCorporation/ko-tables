@@ -2,7 +2,7 @@ ko-tables
 =========
 
 ###Summary###
-Javascript classes to manage data bindings on &lt;table> elements
+Javascript classes to manage knockoutjs data bindings on &lt;table> elements
 
 ###Features###
 + [Paging](http://jsfiddle.net/nB84m/)
