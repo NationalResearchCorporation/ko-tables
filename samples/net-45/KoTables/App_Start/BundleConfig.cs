@@ -28,7 +28,9 @@ namespace NRC.Reveal.KoTables {
                 "~/Scripts/layout.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/Site.css"));
+                "~/Content/Site.css",
+                "~/Content/ko-tables.css",
+                "~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",

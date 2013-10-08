@@ -4,6 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRC.Reveal.KoTables", "KoTables\NRC.Reveal.KoTables.csproj", "{3F99B925-2C8A-4B4E-8142-11EA6B248403}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://oma0pnrctfs01.nationalresearch.com:8080/tfs/nrc
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = KoTables\\NRC.Reveal.KoTables.csproj
+		SccProjectName1 = KoTables
+		SccLocalPath1 = KoTables
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

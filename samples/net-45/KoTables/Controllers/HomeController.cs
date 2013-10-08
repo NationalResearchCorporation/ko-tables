@@ -35,5 +35,9 @@ namespace NRC.Reveal.KoTables.Controllers
         public ActionResult Localizing() {
             return View();
         }
+
+        public ActionResult ColorCoding() {
+            return View();
+        }
     }
 }

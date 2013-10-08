@@ -82,25 +82,10 @@ ul {
     float: left;
     width: 88%;
 }
-
-.content table {
-    border-collapse: collapse;
-    border: 1px solid black;
-    margin: 10px;
-}
-
-.content td {
-    border: 1px solid black;
-}
-
 .content img {
     margin: 2px;
     clear: both;
     display: block;
-}
-
-.content tfoot td {
-    text-align: right;
 }
 
 thead input {

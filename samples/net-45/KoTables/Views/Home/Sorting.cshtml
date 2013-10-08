@@ -6,66 +6,42 @@
     ViewBag.Breadcrumbs.AddFirst(new Breadcrumb(ViewBag.Title, "/Home/Sorting"));
 }
 
-<table>
-    <thead>
-        <tr data-bind="foreach: columns()">
-            <td>
-                <span style="float: left" data-bind="text: description"></span>
-                <div style="float: left">
-                    <img src="/Content/chevron-up.png" data-bind="click: $parent.sort.addSort(name, false)" height="10px" width="10px" />
-                    <img src="/Content/chevron-down.png" data-bind="click: $parent.sort.addSort(name, true)" height="10px" width="10px" />
-                </div>
-            </td>
-        </tr>
-        <tr data-bind="foreach: columns()">
-            <td>
-                <input data-bind="value: $parent.filter.filterFor(name), valueUpdate: 'afterkeydown'"/>
-            </td>
-        </tr>
-    </thead>
-    <tbody data-bind="foreach: page.outputArray()">
-        <tr data-bind="foreach: $parent.columns()">
-            <td data-bind="text: $parent[name]"></td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr>
-            <td data-bind="attr: { colspan: columns().length }">
-                <select data-bind="options: page.availablePageSizes, optionsValue: 'value', optionsText: 'name', value: page.currentPageSize" ></select>
-                <span style="margin-right: 20px">per page</span>
-                <input type="button" data-bind="click: page.prevPage" value="-" />
-                <span>Page </span>
-                <input style="width: 40px" data-bind="value: page.currentPage" />
-                <span> of </span>
-                <span data-bind="text: page.maxPage()"></span>
-                <input type="button" data-bind="click: page.nextPage" value="+" />
-            </td>
-        </tr>
-    </tfoot>
-</table>
+<table id="sortingTable" class="koTable" data-bind="template: { name: 'tableTemplate', data: $data }"></table>
 
 @section Scripts {
     <script type="text/javascript">
         jQuery(document).ready(function () {
             var Model = function() {
-                this.columns = ko.observableArray([]);
-                this.data = ko.observable([]);
+                // Title of the table
+                this.title = "@ViewBag.Title";
                 
+                // List of columns in the data.  The template will iterate over this to display header templates.
+                this.columns = ko.observableArray([]);
+
+                // Actual rows of data.  This is internal only, the template will not touch it.
+                this.data = ko.observableArray([]);
+                
+                // Event hooks for changing the data source
                 this.onDataSourceChanging = function () {
-                    this.filter.clearFilters();
                 }
                 
                 this.onDataSourceChanged = function () {
                 }
 
-                // Filtering
-                this.filter = new ColumnFilter(this.data);
+                // Handle collapsing
+                this.collapsed = ko.observable(false);
+                this.toggleCollapsed = function () {
+                    this.collapsed(!this.collapsed())
+                }
 
                 // Sorting
-                this.sort = new Sort(this.filter.outputArray);
+                this.sort = new Sort(this.data);
 
                 // Paging
                 this.page = new Page(this.sort.outputArray, 10);
+                
+                // We explicity tell the template where to get the final data
+                this.outputData = this.page.outputArray;
             };
 
             var model = new Model();

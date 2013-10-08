@@ -1,12 +1,19 @@
 ﻿@using NRC.Reveal.KoTables.Models
 @{
-    ViewBag.Title = "Basic";
-    Layout = "~/Views/Shared/_DataSourceLayout.cshtml";
+    ViewBag.Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Color Coding";
     ViewBag.Breadcrumbs = ViewBag.Breadcrumbs ?? new LinkedList<Breadcrumb>();
     ViewBag.Breadcrumbs.AddFirst(new Breadcrumb(ViewBag.Title, "/Home/" + ViewBag.Title));
 }
 
-<table id="basicTable" class="koTable" data-bind="template: { name: 'tableTemplate', data: $root }"></table>
+<table id="colorCodingTable" class="koTable" data-bind="template: { name: 'tableTemplate', data: $data }"></table>
+
+<script type="text/html" id="colorCodedRowTemplate">
+    <tr data-bind="foreach: { data: $root.columns, as: 'column' }, css: { red: row['price'] < 5, green: row['price'] > 10 }">
+        <!-- ko template: { name: column.cellTemplate || 'cellTemplate', data: row[column.name] } -->
+        <!-- /ko -->
+    </tr>
+</script>
 
 @section Scripts {
     <script type="text/javascript">
@@ -14,18 +21,24 @@
             var Model = function() {
                 // Title of the table
                 this.title = "@ViewBag.Title";
-                
+
                 // List of columns in the data.  The template will iterate over this to display header templates.
                 this.columns = ko.observableArray([]);
 
                 // Actual rows of data.  This is internal only, the template will not touch it.
                 this.data = ko.observableArray([]);
-                
+
+                // Override the rowTemplate.
+                this.rowTemplate = 'colorCodedRowTemplate';
+
                 // Event hooks for changing the data source
                 this.onDataSourceChanging = function () {
                 }
 
                 this.onDataSourceChanged = function () {
+                    this.filter.columnsToSearch(ko.utils.arrayMap(this.columns(), function(item) {
+                        return item.name;
+                    }));
                 }
 
                 // Handle collapsing
@@ -33,11 +46,21 @@
                 this.toggleCollapsed = function () {
                     this.collapsed(!this.collapsed())
                 }
-                
-                // We explicity tell the template where to get the final data
-                this.outputData = this.data;
+
+                // Filtering
+                this.filter = new TableFilter(this.data, ko.observableArray([]));
+
+                // Sorting
+                this.sort = new Sort(this.filter.outputArray);
+
+                // Paging
+                this.page = new Page(this.sort.outputArray, 10);
+
+                // We explicity tell the template where to get the final data, in this case the paged output.
+                this.outputData = this.page.outputArray;
             };
 
+            // Instantiate ithe model and register it with the data source changing controls
             var model = new Model();
             registerModel(model);
             changeDataSource("Tiny");

@@ -1,0 +1,56 @@
+﻿
+.koTable {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.koTable td {
+    padding: 5px;
+    font-size: 1.1em;
+    border: 1px solid #404040;
+}
+
+.koTable thead td {
+    font-weight: bold;
+}
+
+.koTable thead .collapsed {
+    font-size: 2em;
+}
+
+.koTable tbody tr:nth-child(2n+1) {
+    background-color: #f4f4f4;
+}
+
+.koTable tbody tr:hover {
+    background-color: #eeeeee;
+}
+
+.koTable tfoot td {
+    text-align: right;
+}
+
+.koTable tbody .red:nth-child(2n+1) {
+    background-color: #cc2222 !important;
+    color: white !important;
+}
+
+.koTable tbody .red:nth-child(2n) {
+    background-color: #dd2222 !important;
+    color: white !important;
+}
+
+.koTable tbody .green:nth-child(2n+1) {
+    background-color: #33aa33 !important;
+    color: white !important;
+}
+
+.koTable tbody .green:nth-child(2n) {
+    background-color: #33bb33 !important;
+    color: white !important;
+}
+
+.koTable .collapseButton {
+    font-size: 0.8em;
+}
+

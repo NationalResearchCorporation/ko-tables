@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+
+<!-- This file holds the basic table structure, templatized at each logical point so you can drop in custom sections for any piece -->
+
+<!-- This is the highest level template.  Calls out to header, body, and footer templates. $data is the root model object. -->
+<script type="text/html" id="tableTemplate">
+    <!-- ko if: collapsed() -->
+        <!-- ko template: { name: data.collapsedTemplate || 'collapsedTemplate', data: $data } -->
+        <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko if: !collapsed() -->
+        <!-- ko template: { name: data.headerTemplate || 'headerTemplate', data: $data } -->
+        <!-- /ko -->
+        <!-- ko template: { name: data.bodyTemplate || 'bodyTemplate', data: $data } -->
+        <!-- /ko -->
+        <!-- ko template: { name: data.footerTemplate || 'footerTemplate', data: $data } -->
+        <!-- /ko -->
+    <!-- /ko -->
+</script>
+
+<script type="text/html" id="collapsedTemplate">
+    <thead>
+        <tr>
+            <td>
+                <span class="collapsed" data-bind="text: title"></span>
+                <a class="collapseButton" data-bind="click: toggleCollapsed">uncollapse</a>
+            </td>
+        </tr>
+    </thead>
+</script>
+
+<!-- Header template.  Calls out to columnHeaderTemplate for each column, and checks if a columnFilterTemplate.  $data is the root model object. -->
+<script type="text/html" id="headerTemplate">
+    <thead>
+        <tr data-bind="foreach: { data: columns(), as: 'column' }">
+            <!-- ko template: { name: column.columnHeaderTemplate || 'columnHeaderTemplate', data: column } -->
+            <!-- /ko -->
+        </tr>
+        <!-- ko if: $root.columnFilter -->
+            <!-- ko template: { name: $root.columnFilterTemplate || 'columnFilterTemplate', data: $root } -->
+            <!-- /ko -->
+        <!-- /ko -->
+    </thead>
+</script>
+
+<!-- Column header template.  Prints description of column, and sorting chevrons if needed.  $data is current column object. -->
+<script type="text/html" id="columnHeaderTemplate">
+    <!-- ko if: $root.sort -->
+        <td data-bind="click: $root.sort.addSort(name)">
+            <span style="float: left" data-bind="text: description"></span>
+            <div style="float: left" data-bind="visible: $root.sort.getSort(name)() === true">
+                <img src="/Content/chevron-up.png" height="10px" width="10px" />
+            </div>
+            <div style="float: left" data-bind="visible: $root.sort.getSort(name)() === false">
+                <img src="/Content/chevron-down.png" height="10px" width="10px" />
+            </div>
+        </td>
+    <!-- /ko -->
+    <!-- ko if: !$root.sort -->
+        <td>
+            <span style="float: left" data-bind="text: description"></span>
+        </td>
+    <!-- /ko -->
+</script>
+
+<!-- Body template.  Calls out to the rowTemplate for each row. $data is the root model object. -->
+<script type="text/html" id="bodyTemplate">
+    <tbody data-bind="foreach: { data: outputData, as: 'row' }">
+        <!-- ko template: { name: $root.rowTemplate || 'rowTemplate', data: row } -->
+        <!-- /ko -->
+    </tbody>
+</script>
+
+<!-- Row template.  Adds a row and calls out to cellTemplate for each cell.  $data is the curent row object. -->
+<script type="text/html" id="rowTemplate">
+    <tr data-bind="foreach: { data: $root.columns, as: 'column' }">
+        <!-- ko template: { name: column.cellTemplate || 'cellTemplate', data: row[column.name] } -->
+        <!-- /ko -->
+    </tr>
+</script>
+
+<!-- Cell template.  Prints the data for this column of this row.
+    $data is the current value for the current row and column.
+    row and column variables are also bound -->
+<script type="text/html" id="cellTemplate">
+    <!-- ko if: column.cellRender -->
+        <td data-bind="text: column.cellRender(row, column, $data)"></td>
+    <!-- /ko -->
+    <!-- ko if: !column.cellRender -->
+        <td data-bind="text: $data"></td>
+    <!-- /ko --> 
+</script>
+
+<!-- Footer template.  Adds paging controls if needed.  $data is the root model object. -->
+<script type="text/html" id="footerTemplate">
+    <tfoot>
+        <tr>
+            <td data-bind="attr: { colspan: columns().length }">
+                <!-- ko if: $data.page -->
+                    <select data-bind="options: page.availablePageSizes, optionsValue: 'value', optionsText: 'name', value: page.currentPageSize" ></select>
+                    <span>per page</span>
+                    <input type="button" data-bind="click: page.prevPage" value="-" />
+                    <span>Page</span>
+                    <input style="width: 40px" data-bind="value: page.currentPage" />
+                    <span>of</span>
+                    <span data-bind="text: page.maxPage"></span>
+                    <input type="button" data-bind="click: page.nextPage" value="+" />
+                <!-- /ko -->
+                <a class="collapseButton" data-bind="click: toggleCollapsed">collapse</a>
+            </td>
+        </tr>
+    </tfoot>
+</script>
+
+<!-- Column filter template.  Creates and data-binds an input field to filter a specific column.  $data is the root model object. -->
+<script type="text/html" id="columnFilterTemplate">
+    <tr data-bind="foreach: columns()">
+        <td>
+            <input data-bind="value: $parent.columnFilter.filterFor(name), valueUpdate: 'afterkeydown'"/>
+        </td>
+    </tr>
+</script>
+
+</head>
+</html>
+

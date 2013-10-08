@@ -24,13 +24,43 @@ var Sort = function(inputArray) {
 
     // Change the primary sort, pushing the existing primary to secondary, etc.
     // The way ko calls this, this actually needs to return a function that does the work
-    var addSort = function (field, ascending) {
+    var addSort = function (field) {
         return function () {
+            // Find the existing sort-order for this column
+            var order = null;  // null == no sort requested
+            var sorts = sortArray();
+            for (var ii = 0; ii < sorts.length; ii++) {
+                if (sorts[ii].field == field) {
+                    order = sorts[ii].ascending;
+                }
+            }
+
+            // "Advance" the sort: no sort -> ascending -> descending -> back to no sort
+            order = order == null ? true : (order ? false : null);
+
+            // Remove any existing sort for this column
             sortArray.remove(function (item) {
                 return item.field == field;
             });
-            sortArray.push({ "field": field, "ascending": ascending });
+
+            // Re-add the new sort (if it's not set to no-sort)
+            if (order !== null) {
+                sortArray.push({ "field": field, "ascending": order });
+            }
         }
+    }
+
+    var getSort = function (field) {
+        return ko.computed(function () {
+            var order = null;  // null == no sort requested, false == descending, true == ascending
+            var sorts = sortArray();
+            for (var ii = 0; ii < sorts.length; ii++) {
+                if (sorts[ii].field == field) {
+                    order = sorts[ii].ascending;
+                }
+            }
+            return order;
+        });
     }
 
     // Anytime the sorts change, recompute a sort function
@@ -57,5 +87,6 @@ var Sort = function(inputArray) {
     // Public interface
     var self = this;
     self.addSort = addSort;
+    self.getSort = getSort;
     self.outputArray = outputArray;
 };

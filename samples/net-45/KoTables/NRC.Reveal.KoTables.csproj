@@ -21,6 +21,10 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -158,8 +162,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\chevron-down.png" />
     <Content Include="Content\chevron-up.png" />
+    <Content Include="Content\ko-tables.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -226,9 +235,15 @@
     <Content Include="Data\Medium.json" />
     <Content Include="Data\ExtraLarge.json" />
     <None Include="Data\Tiny.json" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ko-tables-table-filtering.js" />
     <Content Include="Scripts\layout.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
@@ -266,9 +281,10 @@
     <Content Include="Views\Home\Paging.cshtml" />
     <Content Include="Views\Home\ColumnFiltering.cshtml" />
     <Content Include="Views\Home\Sorting.cshtml" />
-    <Content Include="Views\Home\Localizing.cshtml" />
     <Content Include="Views\Shared\_DataSourceLayout.cshtml" />
     <Content Include="Views\Home\TableFiltering.cshtml" />
+    <Content Include="Views\Home\ColorCoding.cshtml" />
+    <Content Include="Views\Shared\_TableTemplates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

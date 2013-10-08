@@ -1,8 +1,15 @@
 ﻿
 {
     "columns": [
-        {"name": "name", "description": "Name"},
-        {"name": "price", "description": "Price"}
+        {
+            "name": "name",
+            "description": "Name"
+        },
+        {
+            "name": "price",
+            "description": "Price",
+            "format": "price"
+        }
     ],
     "data": [
         {"name": "Apple", "price": 2.25},
